@@ -1,4 +1,4 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 
 export interface Post {
   title: string;
@@ -11,7 +11,7 @@ export interface Post {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements DoCheck {
+export class AppComponent implements OnInit, DoCheck {
   posts: Post[] = [
     {
       title: 'Learn angular components',
@@ -35,5 +35,7 @@ export class AppComponent implements DoCheck {
     this.posts = this.posts.filter(post => post.id !== id);
   }
 
-  ngDoCheck() {}
+  ngOnInit(): void {}
+
+  ngDoCheck(): void {}
 }
