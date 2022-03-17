@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck } from '@angular/core';
 
 export interface Post {
   title: string;
   text: string;
-  id?: number;
+  id: symbol;
 }
 
 @Component({
@@ -11,20 +11,29 @@ export interface Post {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements DoCheck {
   posts: Post[] = [
     {
       title: 'Learn angular components',
-      text: 'Learning components'
+      text: 'Learning components',
+      id: Symbol(1)
     },
     {
       title: 'Next block',
       text: 'Will be about direrctives and pipes',
-      id: 2
+      id: Symbol(2)
     }
   ]
+
+  maxId: number;
 
   updatePosts(post: Post) {
     this.posts.unshift(post);
   }
+
+  removePost(id: symbol) {
+    this.posts = this.posts.filter(post => post.id !== id);
+  }
+
+  ngDoCheck() {}
 }

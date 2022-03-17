@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Post } from '../app.component';
 
 @Component({
@@ -7,8 +7,8 @@ import { Post } from '../app.component';
   styleUrls: ['./post-form.component.scss']
 })
 export class PostFormComponent implements OnInit {
+  @Input() count: number;
   @Output() onAdd: EventEmitter<Post> = new EventEmitter<Post>();
-
   @ViewChild('titleInput', {static: false}) inputRef: ElementRef
 
   title = '';
@@ -23,7 +23,8 @@ export class PostFormComponent implements OnInit {
     if(this.text.trim() && this.title.trim()) {
       const post: Post = {
         title: this.title,
-        text: this.text
+        text: this.text,
+        id: Symbol(this.count + 1)
       }
 
       this.onAdd.emit(post);
